@@ -1,0 +1,37 @@
+{
+  "name": "Test plan one",
+  "suites": [
+    {
+      "name": "Suite one",
+      "description": "Description of the first suite",
+      "url": "https://reqres.in",
+      "tests": [
+        {
+          "name": "Test one",
+          "description": "This is the first test",
+          "request": {
+            "endpoint": "/api/users",
+            "parameters": [
+              {"key": "page", "value": "2"}
+            ]
+          },
+          "response": {
+            "code": 200
+          }
+        },
+        {
+          "name": "Test two",
+          "request": {
+            "endpoint": "/api/users",
+            "parameters": [
+              {"key": "page", "value": "3"}
+            ]
+          },
+          "response": {
+            "code": 404
+          }
+        }
+      ]
+    }
+  ]
+}
