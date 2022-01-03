@@ -1,28 +1,24 @@
 package io.ventosa.restester;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import io.ventosa.restester.json.pojo.TestPlanPOJO;
-import io.ventosa.restester.util.HttpRequest;
 import io.ventosa.restester.json.Json;
+import io.ventosa.restester.util.Util;
 
 import java.io.*;
-import java.util.stream.Collectors;
 
 public class Main {
 
     public static void main(String[] args) {
 
         try {
-            InputStream inputStream = new FileInputStream(args[0]);
+            JsonNode node = Json.parse(Util.stringFromFile(args[0]));
+            TestPlanPOJO planPOJO = Json.fromJson(node, TestPlanPOJO.class);
 
-            String text = new BufferedReader(new InputStreamReader(inputStream))
-                    .lines()
-                    .collect(Collectors.joining("\n"));
+            TestPlan testPlan = new TestPlan(planPOJO);
 
-            JsonNode node = Json.parse(text);
-            TestPlanPOJO plan = Json.fromJson(node, TestPlanPOJO.class);
-        }
-        catch (IOException e) {
+        } catch (FileNotFoundException | JsonProcessingException e) {
             e.printStackTrace();
         }
     }

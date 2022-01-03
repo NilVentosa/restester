@@ -1,5 +1,6 @@
 {
   "name": "Test plan one",
+  "url": "http://testplan.com",
   "suites": [
     {
       "name": "Suite one",
@@ -10,6 +11,37 @@
           "name": "Test one",
           "description": "This is the first test",
           "request": {
+            "endpoint": "/api/users",
+            "parameters": [
+              {"key": "page", "value": "2"}
+            ]
+          },
+          "response": {
+            "code": 200
+          }
+        },
+        {
+          "name": "Test two",
+          "request": {
+            "endpoint": "/api/users",
+            "parameters": [
+              {"key": "page", "value": "3"}
+            ]
+          },
+          "response": {
+            "code": 404
+          }
+        }
+      ]
+    },{
+      "name": "Suite two",
+      "description": "Description of the second suite",
+      "tests": [
+        {
+          "name": "Test one",
+          "description": "This is the first test",
+          "request": {
+            "url": "https://testsuitetwotestcaseone.com",
             "endpoint": "/api/users",
             "parameters": [
               {"key": "page", "value": "2"}

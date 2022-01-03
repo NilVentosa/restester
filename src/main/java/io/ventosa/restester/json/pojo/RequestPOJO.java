@@ -2,6 +2,8 @@ package io.ventosa.restester.json.pojo;
 
 public class RequestPOJO {
     private String endpoint;
+    private String url;
+    private ParameterPOJO[] parameters;
 
     public String getEndpoint() {
         return endpoint;
@@ -19,5 +21,11 @@ public class RequestPOJO {
         this.parameters = parameters;
     }
 
-    private ParameterPOJO[] parameters;
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
 }

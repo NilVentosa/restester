@@ -3,6 +3,7 @@ package io.ventosa.restester.json.pojo;
 public class TestPlanPOJO {
     private String name;
     private TestSuitePOJO[] suites;
+    private String url;
 
     public String getName() {
         return name;
@@ -18,5 +19,13 @@ public class TestPlanPOJO {
 
     public void setSuites(TestSuitePOJO[] suites) {
         this.suites = suites;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
     }
 }

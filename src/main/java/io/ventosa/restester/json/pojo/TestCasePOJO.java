@@ -2,7 +2,9 @@ package io.ventosa.restester.json.pojo;
 
 public class TestCasePOJO {
     private String name;
+    private String description;
     private RequestPOJO request;
+    private ResponsePOJO response;
 
     public String getName() {
         return name;
@@ -28,5 +30,11 @@ public class TestCasePOJO {
         this.response = response;
     }
 
-    private ResponsePOJO response;
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
 }
