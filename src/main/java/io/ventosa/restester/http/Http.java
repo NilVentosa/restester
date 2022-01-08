@@ -53,7 +53,7 @@ public class Http {
         if (testRequest.getEndpoint().startsWith("/")) {
             url.append(testRequest.getEndpoint().substring(1));
         }
-        if (!testRequest.getRequestParameters().isEmpty()) {
+        if (testRequest.getRequestParameters() != null) {
             url.append("?");
             for (String key: testRequest.getRequestParameters().keySet()) {
                 url.append(key).append("=").append(testRequest.getRequestParameters().get(key)).append("&");

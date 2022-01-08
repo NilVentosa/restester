@@ -19,10 +19,10 @@ public class TestPlan {
         if (testPlanPOJO.getSuites().length > 0) {
             this.testSuites = new ArrayList<>();
             for (int i = 0; i < testPlanPOJO.getSuites().length; i++) {
-                this.testSuites.add(new TestSuite(testPlanPOJO.getSuites()[i]));
-                if (this.url != null && testPlanPOJO.getSuites()[i].getUrl() == null) {
-                    this.testSuites.get(i).setUrl(this.url);
+                if (testPlanPOJO.getSuites()[i].getUrl() == null && this.url != null) {
+                    testPlanPOJO.getSuites()[i].setUrl(this.url);
                 }
+                this.testSuites.add(new TestSuite(testPlanPOJO.getSuites()[i]));
             }
         }
     }

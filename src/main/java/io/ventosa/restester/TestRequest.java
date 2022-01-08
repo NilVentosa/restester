@@ -14,7 +14,7 @@ public class TestRequest {
     public TestRequest(RequestPOJO requestPOJO) {
         this.setEndpoint(requestPOJO.getEndpoint());
         this.setUrl(requestPOJO.getUrl());
-        if (requestPOJO.getParameters().length > 0) {
+        if (requestPOJO.getParameters() != null && requestPOJO.getParameters().length > 0) {
             this.setRequestParameters(new HashMap<>());
             for (ParameterPOJO parameterPOJO: requestPOJO.getParameters()) {
                 this.getRequestParameters().put(parameterPOJO.getKey(), parameterPOJO.getValue());

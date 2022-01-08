@@ -18,10 +18,10 @@ public class TestSuite {
         if (testSuitePOJO.getTests().length > 0) {
             this.testCases = new ArrayList<>();
             for (int i = 0; i < testSuitePOJO.getTests().length; i++) {
-                this.testCases.add(new TestCase(testSuitePOJO.getTests()[i]));
-                if (this.url != null && testSuitePOJO.getTests()[i].getRequest().getUrl() == null) {
-                    this.testCases.get(i).getTestRequest().setUrl(this.url);
+                if (testSuitePOJO.getTests()[i].getRequest().getUrl() == null && this.url != null) {
+                    testSuitePOJO.getTests()[i].getRequest().setUrl(this.url);
                 }
+                this.testCases.add(new TestCase(testSuitePOJO.getTests()[i]));
             }
         }
     }
