@@ -6,11 +6,21 @@ public class TestCase {
     private String name;
     private String description;
     private TestRequest testRequest;
+    private TestResponse testResponse;
 
     public TestCase(TestCasePOJO testCasePOJO) {
         this.setName(testCasePOJO.getName());
         this.setDescription(testCasePOJO.getDescription());
         this.setTestRequest(new TestRequest(testCasePOJO.getRequest()));
+        this.setTestResponse(new TestResponse(testCasePOJO.getResponse()));
+    }
+
+    public TestResponse getTestResponse() {
+        return testResponse;
+    }
+
+    public void setTestResponse(TestResponse testResponse) {
+        this.testResponse = testResponse;
     }
 
     public String getName() {

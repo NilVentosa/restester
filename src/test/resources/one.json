@@ -37,12 +37,12 @@
     },{
       "name": "Suite two",
       "description": "Description of the second suite",
+      "url": "https://reqres.in",
       "tests": [
         {
           "name": "Test one",
           "description": "This is the first test",
           "request": {
-            "url": "https://testsuitetwotestcaseone.com",
             "endpoint": "/api/users",
             "parameters": [
               {"key": "page", "value": "2"}
