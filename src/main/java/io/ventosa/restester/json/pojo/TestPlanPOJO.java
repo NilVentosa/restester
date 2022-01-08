@@ -4,6 +4,15 @@ public class TestPlanPOJO {
     private String name;
     private TestSuitePOJO[] suites;
     private String url;
+    private String endpoint;
+
+    public String getEndpoint() {
+        return endpoint;
+    }
+
+    public void setEndpoint(String endpoint) {
+        this.endpoint = endpoint;
+    }
 
     public String getName() {
         return name;

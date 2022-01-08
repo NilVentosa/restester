@@ -3,8 +3,8 @@ package io.ventosa.restester.json.pojo;
 public class TestCasePOJO {
     private String name;
     private String description;
-    private RequestPOJO request;
-    private ResponsePOJO response;
+    private RequestPOJO request = new RequestPOJO();
+    private ResponsePOJO response = new ResponsePOJO();
 
     public String getName() {
         return name;

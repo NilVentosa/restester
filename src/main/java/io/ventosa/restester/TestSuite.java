@@ -10,16 +10,21 @@ public class TestSuite {
     private String description;
     private String url;
     private List<TestCase> testCases;
+    private String endpoint;
 
     public TestSuite(TestSuitePOJO testSuitePOJO) {
         this.setName(testSuitePOJO.getName());
         this.setDescription(testSuitePOJO.getDescription());
         this.setUrl(testSuitePOJO.getUrl());
+        this.setEndpoint(testSuitePOJO.getEndpoint());
         if (testSuitePOJO.getTests().length > 0) {
             this.testCases = new ArrayList<>();
             for (int i = 0; i < testSuitePOJO.getTests().length; i++) {
                 if (testSuitePOJO.getTests()[i].getRequest().getUrl() == null && this.url != null) {
                     testSuitePOJO.getTests()[i].getRequest().setUrl(this.url);
+                }
+                if (testSuitePOJO.getTests()[i].getRequest().getEndpoint() == null && this.endpoint != null) {
+                    testSuitePOJO.getTests()[i].getRequest().setEndpoint(this.endpoint);
                 }
                 this.testCases.add(new TestCase(testSuitePOJO.getTests()[i]));
             }
@@ -56,5 +61,13 @@ public class TestSuite {
 
     public void setTestCases(List<TestCase> testCases) {
         this.testCases = testCases;
+    }
+
+    public String getEndpoint() {
+        return endpoint;
+    }
+
+    public void setEndpoint(String endpoint) {
+        this.endpoint = endpoint;
     }
 }
