@@ -4,11 +4,14 @@ import java.io.*;
 import java.util.stream.Collectors;
 
 public class Util {
-    public static String stringFromFile(String filePath) throws FileNotFoundException {
-        InputStream inputStream = new FileInputStream(filePath);
-        return new BufferedReader(new InputStreamReader(inputStream))
-                .lines()
-                .collect(Collectors.joining("\n"));
 
+    private Util() { }
+
+    public static String stringFromFile(String filePath) throws IOException {
+        InputStream inputStream = new FileInputStream(filePath);
+        try (BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream))) {
+            return bufferedReader.lines().collect(Collectors.joining("\n"));
+
+        }
     }
 }

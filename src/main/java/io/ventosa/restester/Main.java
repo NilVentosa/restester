@@ -1,7 +1,8 @@
 package io.ventosa.restester;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
+import io.ventosa.restester.http.Http;
+import io.ventosa.restester.http.HttpResponse;
 import io.ventosa.restester.json.pojo.TestPlanPOJO;
 import io.ventosa.restester.json.Json;
 import io.ventosa.restester.util.Util;
@@ -18,7 +19,10 @@ public class Main {
 
             TestPlan testPlan = new TestPlan(planPOJO);
 
-        } catch (FileNotFoundException | JsonProcessingException e) {
+            HttpResponse response = Http.send(testPlan.getTestSuites().get(0).getTestCases().get(0).getTestRequest());
+            System.out.println(response.getResponseMessage());
+
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }

@@ -13,7 +13,8 @@
           "request": {
             "endpoint": "/api/users",
             "parameters": [
-              {"key": "page", "value": "2"}
+              {"key": "page", "value": "2"},
+              {"key": "per_page", "value": "3"}
             ]
           },
           "response": {
