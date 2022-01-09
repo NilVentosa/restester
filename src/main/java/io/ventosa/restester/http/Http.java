@@ -8,13 +8,18 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Http {
+    private static final Logger LOGGER = Logger.getLogger(Http.class.getSimpleName());
 
     private Http() {}
 
     public static HttpResponse send(TestRequest testRequest) throws IOException {
-        URL url = new URL(generateUrlString(testRequest));
+        String urlString = generateUrlString(testRequest);
+        URL url = new URL(urlString);
+        LOGGER.log(Level.INFO, "Sending to: {0}", urlString);
         HttpURLConnection con = (HttpURLConnection) url.openConnection();
         con.setRequestMethod("GET");
         con.setRequestProperty("Content-Type", "application/json");

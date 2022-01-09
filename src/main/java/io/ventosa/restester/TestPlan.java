@@ -7,12 +7,16 @@ import io.ventosa.restester.json.pojo.TestPlanPOJO;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class TestPlan {
     private String name;
     private List<TestSuite> testSuites;
     private String url = null;
     private String endpoint;
+
+    private static final Logger LOGGER = Logger.getLogger(Http.class.getSimpleName());
 
     public TestPlan(TestPlanPOJO testPlanPOJO) {
         this.setName(testPlanPOJO.getName());
@@ -33,21 +37,20 @@ public class TestPlan {
     }
 
     public void run() {
-        System.out.println("Running plan: " + getName());
+        LOGGER.log(Level.INFO, "Running plan: {0}", getName());
 
         for (TestSuite suite: getTestSuites()) {
-            System.out.println("Running suite: " + suite.getName());
+            LOGGER.log(Level.INFO, "Running suite: {0}", suite.getName());
 
             for (TestCase testCase: suite.getTestCases()) {
-                System.out.println("Running testCase: " + testCase.getName());
+                LOGGER.log(Level.INFO, "Running test case: {0}", testCase.getName());
 
                 try {
                     HttpResponse response = Http.send(testCase.getTestRequest());
-                    System.out.println(
-                            "\tExpected: " + testCase.getTestResponse().getCode() +
-                            " and found: " + response.getCode());
+                    LOGGER.log(Level.INFO, "Expected: {0}, and found {1}",
+                            new Object[]{ testCase.getTestResponse().getCode(), response.getCode() });
                 } catch (IOException e) {
-                    System.out.println(e.getMessage());
+                    LOGGER.log(Level.SEVERE, "Error trying to send a request: {0}", e.toString());
                 }
             }
         }
