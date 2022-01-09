@@ -1,14 +1,20 @@
 package io.ventosa.restester;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
+import io.ventosa.restester.http.Http;
 import io.ventosa.restester.json.pojo.TestPlanPOJO;
 import io.ventosa.restester.json.Json;
 import io.ventosa.restester.runner.Runner;
 import io.ventosa.restester.util.Util;
 
 import java.io.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Main {
+
+    private static final Logger LOGGER = Logger.getLogger(Http.class.getSimpleName());
 
     public static void main(String[] args) {
 
@@ -21,8 +27,12 @@ public class Main {
             Runner runner = new Runner();
             runner.run(new TestPlan(planPOJO));
 
+        } catch (JsonProcessingException e) {
+            LOGGER.log(Level.SEVERE, "Error processing JSON: {0}", e.getMessage());
+        } catch (FileNotFoundException e) {
+            LOGGER.log(Level.SEVERE, "Error finding file: {0}", e.getMessage());
         } catch (IOException e) {
-            e.printStackTrace();
+            LOGGER.log(Level.SEVERE, "Error: {0}", e.getMessage());
         }
     }
 }
