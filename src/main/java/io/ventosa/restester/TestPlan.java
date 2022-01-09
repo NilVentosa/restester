@@ -36,26 +36,6 @@ public class TestPlan {
         }
     }
 
-    public void run() {
-        LOGGER.log(Level.INFO, "Running plan: {0}", getName());
-
-        for (TestSuite suite: getTestSuites()) {
-            LOGGER.log(Level.INFO, "Running suite: {0}", suite.getName());
-
-            for (TestCase testCase: suite.getTestCases()) {
-                LOGGER.log(Level.INFO, "Running test case: {0}", testCase.getName());
-
-                try {
-                    HttpResponse response = Http.send(testCase.getTestRequest());
-                    LOGGER.log(Level.INFO, "Expected: {0}, and found {1}",
-                            new Object[]{ testCase.getTestResponse().getCode(), response.getCode() });
-                } catch (IOException e) {
-                    LOGGER.log(Level.SEVERE, "Error trying to send a request: {0}", e.toString());
-                }
-            }
-        }
-    }
-
     public String getName() {
         return name;
     }
