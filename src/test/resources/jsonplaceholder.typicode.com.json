@@ -1,15 +1,39 @@
 {
   "name": "Plan for jsonplaceholder.typicode.com",
   "url": "https://jsonplaceholder.typicode.com",
-  "endpoint": "/comments",
   "suites": [
     {
       "name": "Comments suite",
+      "endpoint": "/comments",
       "tests": [
         {
           "name": "Comments test 1",
           "response": {
             "code": 200
+          }
+        },
+        {
+          "name": "Comments test 2",
+          "response": {
+            "code": 404
+          }
+        }
+      ]
+    },
+    {
+      "name": "Users suite",
+      "endpoint": "/users",
+      "tests": [
+        {
+          "name": "Users test 1",
+          "response": {
+            "code": 200
+          }
+        },
+        {
+          "name": "Users test 2",
+          "response": {
+            "code": 404
           }
         }
       ]
