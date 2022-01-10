@@ -15,7 +15,7 @@ public class Runner {
     private TestPlan testPlan;
     private TestPlanResult testPlanResult;
 
-    private static final Logger LOGGER = Logger.getLogger(Http.class.getSimpleName());
+    private static final Logger LOGGER = Logger.getLogger(Runner.class.getSimpleName());
 
     public TestPlanResult run(TestPlan testPlan) {
         LOGGER.log(Level.INFO, "Running plan: {0}", testPlan.getName());
@@ -28,6 +28,7 @@ public class Runner {
         }
 
         this.testPlanResult.setExecuted(true);
+        this.printResults();
         return this.testPlanResult;
     }
 
@@ -70,6 +71,21 @@ public class Runner {
         }
 
         return result;
+    }
+
+    private void printResults() {
+        LOGGER.log(Level.INFO, "\n\n");
+        LOGGER.log(Level.INFO, "----------------------------------------------------");
+        LOGGER.log(Level.INFO, "--- R E S U L T S");
+        LOGGER.log(Level.INFO, "----------------------------------------------------");
+        for (TestSuiteResult testSuiteResult: testPlanResult.getTestSuiteResults()) {
+            LOGGER.log(Level.INFO, "--- SUITE: {0}", testSuiteResult.getName());
+            LOGGER.log(Level.INFO, "------ Tests run: {0}, Tests passed: {1}, Tests failed: {2}", new Object[]{
+                    testSuiteResult.getFailed()+testSuiteResult.getPassed(),
+                    testSuiteResult.getPassed(),
+                    testSuiteResult.getFailed()});
+        }
+        LOGGER.log(Level.INFO, "----------------------------------------------------\n\n");
     }
 
 }

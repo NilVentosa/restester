@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import io.ventosa.restester.http.Http;
 import io.ventosa.restester.json.pojo.TestPlanPOJO;
 import io.ventosa.restester.json.Json;
+import io.ventosa.restester.report.Report;
 import io.ventosa.restester.runner.Runner;
 import io.ventosa.restester.runner.TestPlanResult;
 import io.ventosa.restester.util.Util;
@@ -27,7 +28,7 @@ public class Main {
 
             Runner runner = new Runner();
             TestPlanResult result = runner.run(new TestPlan(planPOJO));
-            result.generateReport();
+            Report.generateReport(result);
         } catch (JsonProcessingException e) {
             LOGGER.log(Level.SEVERE, "Error processing JSON: {0}", e.getMessage());
         } catch (FileNotFoundException e) {
