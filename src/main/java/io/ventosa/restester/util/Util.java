@@ -1,6 +1,5 @@
 package io.ventosa.restester.util;
 
-import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils;
 import io.ventosa.restester.http.Http;
 
 import java.io.*;
@@ -20,6 +19,10 @@ public class Util {
             return bufferedReader.lines().collect(Collectors.joining("\n"));
 
         }
+    }
+
+    public static String removeSpaces(String input) {
+        return input.replace(" ", "_");
     }
 
     public static void saveXml(String fileName, String content) {

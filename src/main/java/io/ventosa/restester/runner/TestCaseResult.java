@@ -4,6 +4,10 @@ public class TestCaseResult extends Result {
 
     private String failureReason;
 
+    public TestCaseResult(String name) {
+        this.setName(name);
+    }
+
     public String getFailureReason() {
         return failureReason;
     }

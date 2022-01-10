@@ -20,7 +20,7 @@ public class Runner {
     public TestPlanResult run(TestPlan testPlan) {
         LOGGER.log(Level.INFO, "Running plan: {0}", testPlan.getName());
         this.testPlan = testPlan;
-        this.testPlanResult = new TestPlanResult();
+        this.testPlanResult = new TestPlanResult(testPlan);
 
         for (TestSuite suite: testPlan.getTestSuites()) {
             TestSuiteResult testSuiteResult = this.run(suite);
@@ -33,11 +33,17 @@ public class Runner {
 
     private TestSuiteResult run(TestSuite suite) {
         LOGGER.log(Level.INFO, "Running suite: {0}", suite.getName());
-        TestSuiteResult result = new TestSuiteResult();
+        TestSuiteResult result = new TestSuiteResult(suite);
 
         for (TestCase testCase: suite.getTestCases()) {
             TestCaseResult testCaseResult = this.run(testCase);
             result.getTestCaseResults().add(testCaseResult);
+            if (testCaseResult.isPassed()) {
+                result.setPassed(result.getPassed() + 1);
+            } else {
+                result.setFailed(result.getFailed() + 1);
+            }
+            result.setRemaining(result.getRemaining() - 1);
         }
 
         result.setExecuted(true);
@@ -46,7 +52,7 @@ public class Runner {
 
     private TestCaseResult run(TestCase testCase) {
         LOGGER.log(Level.INFO, "Running test case: {0}", testCase.getName());
-        TestCaseResult result = new TestCaseResult();
+        TestCaseResult result = new TestCaseResult(testCase.getName());
 
         try {
             HttpResponse response = Http.send(testCase.getTestRequest());
