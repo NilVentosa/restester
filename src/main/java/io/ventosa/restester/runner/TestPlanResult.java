@@ -22,14 +22,20 @@ public class TestPlanResult extends Result {
 
         for (TestSuiteResult testSuiteResult: this.getTestSuiteResults()) {
             stringBuilder.append(
-                    String.format("\t<testsuite name=\"%s\" time=\"0.135\" tests=\"%s\" skipped=\"%s\" failures=\"%s\">\n",
+                    String.format("\t<testsuite name=\"%s\" time=\"0.135\" tests=\"%s\" skipped=\"%s\" failures=\"%s\">%n",
                             testSuiteResult.getName(),
                             testSuiteResult.getTestCaseResults().size(),
                             testSuiteResult.getRemaining(),
                             testSuiteResult.getFailed()));
 
             for (TestCaseResult testCaseResult: testSuiteResult.getTestCaseResults()) {
-                stringBuilder.append(String.format("\t\t<testcase name=\"%s\" time=\"0.135\"/>\n", testCaseResult.getName()));
+                if (testCaseResult.isPassed()) {
+                    stringBuilder.append(String.format("\t\t<testcase name=\"%s\" time=\"0.135\"/>%n", testCaseResult.getName()));
+                } else {
+                    stringBuilder.append(String.format("\t\t<testcase name=\"%s\" time=\"0.135\">%n", testCaseResult.getName()));
+                    stringBuilder.append(String.format("\t\t\t<failure>%s</failure>%n", testCaseResult.getFailureReason()));
+                    stringBuilder.append(String.format("\t\t</testcase>%n", testCaseResult.getName()));
+                }
             }
 
             stringBuilder.append("\t</testsuite>\n");
