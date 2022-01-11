@@ -11,6 +11,7 @@ import java.util.logging.Logger;
 public class Report {
 
     private static final Logger LOGGER = Logger.getLogger(Report.class.getSimpleName());
+    private static final String SEPARATOR = "----------------------------------------------------------\n";
 
     private Report() {}
 
@@ -43,5 +44,31 @@ public class Report {
 
 
         Util.saveXml(Util.removeSpaces(testPlanResult.getName()), stringBuilder.toString());
+    }
+
+
+    public static void printReport(TestPlanResult testPlanResult) {
+        StringBuilder stringBuilder = new StringBuilder("\n\n");
+        stringBuilder.append( "\n");
+        stringBuilder.append(SEPARATOR);
+        stringBuilder.append( String.format("--- R E S U L T S: %s%n", testPlanResult.getName()));
+        stringBuilder.append(SEPARATOR);
+        for (TestSuiteResult testSuiteResult: testPlanResult.getTestSuiteResults()) {
+            stringBuilder.append(String.format("--- SUITE: %s%n", testSuiteResult.getName()));
+            stringBuilder.append(String.format("------ Tests run: %s, Tests passed: %s, Tests failed: %s%n",
+                    testSuiteResult.getFailed()+testSuiteResult.getPassed(),
+                    testSuiteResult.getPassed(),
+                    testSuiteResult.getFailed()));
+            if (!testSuiteResult.isPassed()) {
+                for (TestCaseResult testCaseResult: testSuiteResult.getTestCaseResults()) {
+                    if (!testCaseResult.isPassed()) {
+                        stringBuilder.append(String.format("\t\tTest \"%s\" failed due to: %s%n", testCaseResult.getName(), testCaseResult.getFailureReason()));
+                    }
+                }
+            }
+        }
+        stringBuilder.append(SEPARATOR);
+        String report = stringBuilder.toString();
+        LOGGER.info(report);
     }
 }

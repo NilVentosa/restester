@@ -29,6 +29,7 @@ public class Main {
             Runner runner = new Runner();
             TestPlanResult result = runner.run(new TestPlan(planPOJO));
             Report.generateReport(result);
+            Report.printReport(result);
         } catch (JsonProcessingException e) {
             LOGGER.log(Level.SEVERE, "Error processing JSON: {0}", e.getMessage());
         } catch (FileNotFoundException e) {
