@@ -4,9 +4,37 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>io.ventosa</groupId>
+    <groupId>xyz.ventosa</groupId>
     <artifactId>restester</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0.0.0-SNAPSHOT</version>
+
+    <name>restester</name>
+    <description>Automation framework for rest api testing via json files.</description>
+    <url>https://github.com/nilventosa/restester</url>
+
+    <licenses>
+        <license>
+            <name> GNU Lesser General Public License (LGPL), version 3</name>
+            <url>http://www.gnu.org/licenses/lgpl-3.0.en.html</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+
+    <issueManagement>
+        <system>Github</system>
+        <url>https://github.com/nilventosa/restester/issues</url>
+    </issueManagement>
+
+    <developers>
+        <developer>
+            <name>Nil Ventosa</name>
+            <email>ventosa@gmail.com</email>
+            <url>http://ventosa.xyz</url>
+            <roles>
+                <role>Developer</role>
+            </roles>
+        </developer>
+    </developers>
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
@@ -39,23 +67,22 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>2.22.0</version>
             </plugin>
-
-            <!--To generate standalone jar: mvn clean compile assembly:single-->
             <plugin>
                 <artifactId>maven-assembly-plugin</artifactId>
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>io.ventosa.restester.Main</mainClass>
+                            <mainClass>xyz.ventosa.restester.Main</mainClass>
                         </manifest>
                     </archive>
                     <descriptorRefs>
                         <descriptorRef>jar-with-dependencies</descriptorRef>
                     </descriptorRefs>
+                    <appendAssemblyId>false</appendAssemblyId>
                 </configuration>
             </plugin>
         </plugins>
-        <finalName>restester</finalName>
+        <finalName>restester-${project.version}</finalName>
     </build>
 
 </project>

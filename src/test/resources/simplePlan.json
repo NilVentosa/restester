@@ -14,7 +14,7 @@
             "endpoint": "/api/users",
             "parameters": [
               {"key": "page", "value": "2"},
-              {"key": "thing", "value": "hello"}
+              {"key": "per_page", "value": "3"}
             ]
           },
           "response": {
