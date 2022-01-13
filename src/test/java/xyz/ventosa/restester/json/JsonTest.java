@@ -9,8 +9,8 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class JsonTest {
 
-    private String simpleJsonSourceTitle = "the title";
-    private String simpleJsonSource = "{ \"title\": \"" + simpleJsonSourceTitle + "\", \"author\": \"Nil\"}";
+    private final String simpleJsonSourceTitle = "the title";
+    private final String simpleJsonSource = "{ \"title\": \"" + simpleJsonSourceTitle + "\", \"author\": \"Nil\"}";
 
 
     @Test

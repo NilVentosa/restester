@@ -15,4 +15,11 @@ class UtilTest {
 
         assertEquals(expected, actual);
     }
+
+    @Test
+    void removeSpaces() {
+        String expected = "hello_bye";
+        String actual = Util.removeSpaces("hello bye");
+        assertEquals(expected, actual);
+    }
 }

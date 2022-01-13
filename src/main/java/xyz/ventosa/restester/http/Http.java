@@ -1,12 +1,10 @@
 package xyz.ventosa.restester.http;
 
 import xyz.ventosa.restester.TestRequest;
-import xyz.ventosa.restester.json.Json;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
+import java.net.ProtocolException;
 import java.net.URL;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -17,35 +15,25 @@ public class Http {
     private Http() {}
 
     public static HttpResponse send(TestRequest testRequest) throws IOException {
-        String urlString = generateUrlString(testRequest);
-        URL url = new URL(urlString);
-        LOGGER.log(Level.INFO, "Sending to: {0}", urlString);
+        LOGGER.log(Level.INFO, "Sending to: {0}", generateUrlString(testRequest));
+
+        HttpURLConnection con = generateHttpConnection(testRequest);
+
+        return new HttpResponse(con);
+    }
+
+    private static HttpURLConnection generateHttpConnection(TestRequest testRequest) throws IOException {
+        URL url = new URL(generateUrlString(testRequest));
         HttpURLConnection con = (HttpURLConnection) url.openConnection();
-        con.setRequestMethod("GET");
+        try {
+            con.setRequestMethod("GET");
+        } catch (ProtocolException e) {
+            LOGGER.info(e.getMessage());
+        }
         con.setRequestProperty("Content-Type", "application/json");
         con.setRequestProperty("user-agent", "restester 1.0.0.0-SNAPSHOT");
 
-        int status = con.getResponseCode();
-        BufferedReader reader;
-        String line;
-        StringBuilder responseContent = new StringBuilder();
-
-        if (status > 299) {
-            reader = new BufferedReader(new InputStreamReader(con.getErrorStream()));
-        } else {
-            reader = new BufferedReader(new InputStreamReader(con.getInputStream()));
-        }
-        while((line = reader.readLine()) != null) {
-            responseContent.append(line);
-        }
-        reader.close();
-
-        HttpResponse response = new HttpResponse();
-        response.setCode(status);
-        response.setResponse(Json.parse(responseContent.toString()));
-        response.setResponseMessage(con.getResponseMessage());
-
-        return response;
+        return con;
     }
 
     private static String generateUrlString(TestRequest testRequest) {
