@@ -1,8 +1,8 @@
 package xyz.ventosa.restester.runner;
 
-import xyz.ventosa.restester.TestCase;
-import xyz.ventosa.restester.TestPlan;
-import xyz.ventosa.restester.TestSuite;
+import xyz.ventosa.restester.test.TestCase;
+import xyz.ventosa.restester.test.TestPlan;
+import xyz.ventosa.restester.test.TestSuite;
 import xyz.ventosa.restester.http.Http;
 import xyz.ventosa.restester.http.HttpResponse;
 

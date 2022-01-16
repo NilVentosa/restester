@@ -1,6 +1,6 @@
 package xyz.ventosa.restester.runner;
 
-import xyz.ventosa.restester.TestSuite;
+import xyz.ventosa.restester.test.TestSuite;
 
 import java.util.ArrayList;
 import java.util.List;

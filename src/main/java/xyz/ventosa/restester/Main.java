@@ -8,6 +8,7 @@ import xyz.ventosa.restester.json.Json;
 import xyz.ventosa.restester.report.Report;
 import xyz.ventosa.restester.runner.Runner;
 import xyz.ventosa.restester.runner.TestPlanResult;
+import xyz.ventosa.restester.test.TestPlan;
 import xyz.ventosa.restester.util.Util;
 
 import java.io.*;
@@ -23,7 +24,7 @@ public class Main {
         System.setProperty("java.util.logging.SimpleFormatter.format", "%1$tF %1$tT %4$s %2$s %5$s%6$s%n");
 
         try {
-            JsonNode node = Json.parse(Util.stringFromFile(args[0]));
+            JsonNode node = Json.parse(Util.stringFromFile("src/test/resources/jsonplaceholder.typicode.com.json"));
             TestPlanPOJO planPOJO = Json.fromJson(node, TestPlanPOJO.class);
 
             Runner runner = new Runner();

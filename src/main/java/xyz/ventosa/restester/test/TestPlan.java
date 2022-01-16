@@ -1,4 +1,4 @@
-package xyz.ventosa.restester;
+package xyz.ventosa.restester.test;
 
 import xyz.ventosa.restester.http.Http;
 import xyz.ventosa.restester.json.pojo.TestPlanPOJO;

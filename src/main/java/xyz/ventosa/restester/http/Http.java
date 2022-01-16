@@ -1,6 +1,6 @@
 package xyz.ventosa.restester.http;
 
-import xyz.ventosa.restester.TestRequest;
+import xyz.ventosa.restester.test.TestRequest;
 
 import java.io.IOException;
 import java.net.HttpURLConnection;

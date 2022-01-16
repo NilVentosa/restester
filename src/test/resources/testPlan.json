@@ -1,0 +1,61 @@
+{
+  "name": "Plan for testing",
+  "url": "https://testplan.com",
+  "suites": [
+    {
+      "name": "Suite1",
+      "url": "https://testsuite.com",
+      "endpoint": "/suite1",
+      "tests": [
+        {
+          "name": "Suite1Test1",
+          "description": "Description test suite 1 test case 1",
+          "response": {
+            "code": 200
+          }
+        },
+        {
+          "name": "Suite1Test2",
+          "request": {
+            "endpoint": "/request2"
+          },
+          "response": {
+            "code": 404
+          }
+        }
+      ]
+    },
+    {
+      "name": "Suite2",
+      "tests": [
+        {
+          "name": "Suite2Test1",
+          "response": {
+            "code": 200
+          }
+        },
+        {
+          "name": "Suite2Test2",
+          "description": "Description test suite 2 test case 2",
+          "request": {
+            "parameters": [
+              {
+                "key": "page",
+                "value": "2"
+              },
+              {
+                "key": "per_page",
+                "value": "10"
+              }
+            ],
+            "url": "www.testcase.com",
+            "endpoint": "/suite2test2request"
+          },
+          "response": {
+            "code": 500
+          }
+        }
+      ]
+    }
+  ]
+}
