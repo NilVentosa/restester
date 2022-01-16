@@ -1,10 +1,16 @@
 package xyz.ventosa.restester.runner;
 
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.HttpClientBuilder;
 import xyz.ventosa.restester.test.TestCase;
 import xyz.ventosa.restester.test.TestPlan;
+import xyz.ventosa.restester.test.TestResponse;
 import xyz.ventosa.restester.test.TestSuite;
-import xyz.ventosa.restester.http.Http;
-import xyz.ventosa.restester.http.HttpResponse;
+
+import xyz.ventosa.restester.util.Util;;
 
 import java.io.IOException;
 import java.util.logging.Level;
@@ -52,24 +58,36 @@ public class Runner {
 
     private TestCaseResult run(TestCase testCase) {
         LOGGER.log(Level.INFO, "Running test case: {0}", testCase.getName());
-        TestCaseResult result = new TestCaseResult(testCase.getName());
 
+        HttpClient client = HttpClientBuilder.create().build();
+        HttpGet request = new HttpGet(Util.generateUrlString(testCase.getTestRequest()));
+        HttpResponse response = null;
         try {
-            HttpResponse response = Http.send(testCase.getTestRequest());
-            if (testCase.getTestResponse().getCode() == response.getCode()) {
+            response = client.execute(request);
+        }
+        catch (IOException e) {
+            TestCaseResult result = new TestCaseResult(testCase.getName());
+            result.setFailureReason(e.toString());
+            return result;
+        }
+
+        return runAssertions(testCase, response);
+    }
+
+    private TestCaseResult runAssertions(TestCase testCase, HttpResponse response) {
+        TestCaseResult result = new TestCaseResult(testCase.getName());
+        TestResponse expected = testCase.getTestResponse();
+
+        if (expected.getCode() != -1) {
+            if (expected.getCode() == response.getStatusLine().getStatusCode()) {
                 result.setPassed(true);
             } else {
                 result.setPassed(false);
-                result.setFailureReason(String.format("Expected: %s, and found %s", testCase.getTestResponse().getCode(), response.getCode()));
+                result.setFailureReason(String.format("Expected: %s, and found %s", testCase.getTestResponse().getCode(), response.getStatusLine().getStatusCode()));
+                result.setExecuted(true);
+                return result;
             }
-        } catch (IOException e) {
-            result.setPassed(false);
-            result.setFailureReason(String.format("Error trying to send a request: %s", e));
-        } finally {
-            result.setExecuted(true);
         }
-
         return result;
     }
-
 }

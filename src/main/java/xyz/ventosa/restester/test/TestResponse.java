@@ -3,7 +3,7 @@ package xyz.ventosa.restester.test;
 import xyz.ventosa.restester.json.pojo.ResponsePOJO;
 
 public class TestResponse {
-    private int code;
+    private int code = -1;
 
     public TestResponse(ResponsePOJO responsePOJO) {
         this.setCode(responsePOJO.getCode());

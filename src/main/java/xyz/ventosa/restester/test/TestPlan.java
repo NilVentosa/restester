@@ -1,6 +1,5 @@
 package xyz.ventosa.restester.test;
 
-import xyz.ventosa.restester.http.Http;
 import xyz.ventosa.restester.json.pojo.TestPlanPOJO;
 
 import java.util.ArrayList;
@@ -13,7 +12,7 @@ public class TestPlan {
     private String url = null;
     private String endpoint;
 
-    private static final Logger LOGGER = Logger.getLogger(Http.class.getSimpleName());
+    private static final Logger LOGGER = Logger.getLogger(TestPlan.class.getSimpleName());
 
     public TestPlan(TestPlanPOJO testPlanPOJO) {
         this.setName(testPlanPOJO.getName());

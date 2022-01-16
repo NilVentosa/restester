@@ -1,6 +1,6 @@
 package xyz.ventosa.restester.util;
 
-import xyz.ventosa.restester.http.Http;
+import xyz.ventosa.restester.test.TestRequest;
 
 import java.io.*;
 import java.util.logging.Level;
@@ -9,7 +9,7 @@ import java.util.stream.Collectors;
 
 public class Util {
 
-    private static final Logger LOGGER = Logger.getLogger(Http.class.getSimpleName());
+    private static final Logger LOGGER = Logger.getLogger(Util.class.getSimpleName());
 
     private Util() { }
 
@@ -37,5 +37,26 @@ public class Util {
             e.printStackTrace();
         }
 
+    }
+
+    public static String generateUrlString(TestRequest testRequest) {
+        StringBuilder url = new StringBuilder();
+
+        url.append(testRequest.getUrl());
+        if (url.charAt(url.length()-1) != '/') {
+            url.append("/");
+        }
+        if (testRequest.getEndpoint().startsWith("/")) {
+            url.append(testRequest.getEndpoint().substring(1));
+        }
+        if (testRequest.getRequestParameters() != null) {
+            url.append("?");
+            for (String key: testRequest.getRequestParameters().keySet()) {
+                url.append(key).append("=").append(testRequest.getRequestParameters().get(key)).append("&");
+            }
+            url.deleteCharAt(url.length()-1);
+        }
+
+        return url.toString();
     }
 }

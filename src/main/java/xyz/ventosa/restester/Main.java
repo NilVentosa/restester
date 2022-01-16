@@ -2,7 +2,6 @@ package xyz.ventosa.restester;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
-import xyz.ventosa.restester.http.Http;
 import xyz.ventosa.restester.json.pojo.TestPlanPOJO;
 import xyz.ventosa.restester.json.Json;
 import xyz.ventosa.restester.report.Report;
@@ -17,7 +16,7 @@ import java.util.logging.Logger;
 
 public class Main {
 
-    private static final Logger LOGGER = Logger.getLogger(Http.class.getSimpleName());
+    private static final Logger LOGGER = Logger.getLogger(Main.class.getSimpleName());
 
     public static void main(String[] args) {
 
