@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+	<testsuite name="Comments suite" time="0.135" tests="2" skipped="0" failures="1">
+		<testcase name="Comments test 1" time="0.135"/>
+		<testcase name="Comments test 2" time="0.135">
+			<failure>Expected: 404, and found 200</failure>
+		</testcase>
+	</testsuite>
+	<testsuite name="Users suite" time="0.135" tests="2" skipped="0" failures="1">
+		<testcase name="Users test 1" time="0.135"/>
+		<testcase name="Users test 2" time="0.135">
+			<failure>Expected: 404, and found 200</failure>
+		</testcase>
+	</testsuite>
+</testsuites>

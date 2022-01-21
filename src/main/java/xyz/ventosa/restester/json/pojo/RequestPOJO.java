@@ -4,6 +4,7 @@ public class RequestPOJO {
     private String endpoint;
     private String url;
     private ParameterPOJO[] parameters;
+    private String method;
 
     public String getEndpoint() {
         return endpoint;
@@ -27,5 +28,13 @@ public class RequestPOJO {
 
     public void setUrl(String url) {
         this.url = url;
+    }
+
+    public String getMethod() {
+        return method;
+    }
+
+    public void setMethod(String method) {
+        this.method = method;
     }
 }

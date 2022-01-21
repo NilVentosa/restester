@@ -7,9 +7,10 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.HttpClientBuilder;
 import xyz.ventosa.restester.test.TestCase;
 import xyz.ventosa.restester.test.TestPlan;
-import xyz.ventosa.restester.test.TestResponse;
+import xyz.ventosa.restester.test.ExpectedResponse;
 import xyz.ventosa.restester.test.TestSuite;
 
+import xyz.ventosa.restester.util.HttpUtil;
 import xyz.ventosa.restester.util.Util;;
 
 import java.io.IOException;
@@ -60,7 +61,17 @@ public class Runner {
         LOGGER.log(Level.INFO, "Running test case: {0}", testCase.getName());
 
         HttpClient client = HttpClientBuilder.create().build();
-        HttpGet request = new HttpGet(Util.generateUrlString(testCase.getTestRequest()));
+        String url = HttpUtil.generateUrlString(testCase.getTestRequest());
+
+        switch(testCase.getTestRequest().getMethod()) {
+            case "POST":
+                HttpPost postRequest = new HttpPost(url);
+                break;
+            default:
+                HttpGet getRequest = new HttpGet(url);
+        }
+
+        HttpGet request = new HttpGet(url);
         HttpResponse response = null;
         try {
             response = client.execute(request);
@@ -76,7 +87,7 @@ public class Runner {
 
     private TestCaseResult runAssertions(TestCase testCase, HttpResponse response) {
         TestCaseResult result = new TestCaseResult(testCase.getName());
-        TestResponse expected = testCase.getTestResponse();
+        ExpectedResponse expected = testCase.getTestResponse();
 
         if (expected.getCode() != -1) {
             if (expected.getCode() == response.getStatusLine().getStatusCode()) {

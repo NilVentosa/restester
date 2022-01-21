@@ -8,6 +8,12 @@
       "tests": [
         {
           "name": "Comments test 1",
+          "request": {
+            "method": "POST",
+            "parameters": [
+              {"key": "postId", "value":  "1"}
+            ]
+          },
           "response": {
             "code": 200
           }

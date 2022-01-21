@@ -2,10 +2,10 @@ package xyz.ventosa.restester.test;
 
 import xyz.ventosa.restester.json.pojo.ResponsePOJO;
 
-public class TestResponse {
+public class ExpectedResponse {
     private int code = -1;
 
-    public TestResponse(ResponsePOJO responsePOJO) {
+    public ExpectedResponse(ResponsePOJO responsePOJO) {
         this.setCode(responsePOJO.getCode());
     }
 

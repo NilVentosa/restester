@@ -1,5 +1,6 @@
 package xyz.ventosa.restester.test;
 
+import org.apache.http.HttpResponse;
 import xyz.ventosa.restester.json.pojo.ParameterPOJO;
 import xyz.ventosa.restester.json.pojo.RequestPOJO;
 
@@ -10,6 +11,7 @@ public class TestRequest {
     private String endpoint;
     private String url;
     private Map<String, String> requestParameters;
+    private String method;
 
     public TestRequest(RequestPOJO requestPOJO) {
         this.setEndpoint(requestPOJO.getEndpoint());
@@ -44,5 +46,17 @@ public class TestRequest {
 
     public void setRequestParameters(Map<String, String> requestParameters) {
         this.requestParameters = requestParameters;
+    }
+
+    public String getMethod() {
+        return method;
+    }
+
+    public void setMethod(String method) {
+        this.method = method;
+    }
+
+    public HttpResponse send() {
+        //TODO
     }
 }
