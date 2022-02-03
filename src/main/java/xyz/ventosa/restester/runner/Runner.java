@@ -60,26 +60,10 @@ public class Runner {
         LOGGER.log(Level.INFO, "Running test case: {0}", testCase.getName());
         long startTime = System.currentTimeMillis();
 
-        HttpClient client = HttpClientBuilder.create().build();
-        String url = HttpUtil.generateUrlString(testCase.getTestRequest());
-        TestRequest testRequest = testCase.getTestRequest();
         HttpResponse response;
         try {
-            switch(testRequest.getMethod()) {
-                case "POST":
-                    HttpPost postRequest = new HttpPost(url);
-                    response = client.execute(postRequest);
-                    break;
-                case "DELETE":
-                    HttpDelete httpDelete = new HttpDelete(url);
-                    response = client.execute(httpDelete);
-                    break;
-                default:
-                    HttpGet getRequest = new HttpGet(url);
-                    response = client.execute(getRequest);
-            }
-        }
-        catch (IOException e) {
+            response = testCase.getTestRequest().send();
+        } catch (IOException e) {
             TestCaseResult result = new TestCaseResult(testCase.getName());
             result.setFailureReason(e.toString());
             return result;
@@ -99,7 +83,9 @@ public class Runner {
                 result.setPassed(true);
             } else {
                 result.setPassed(false);
-                result.setFailureReason(String.format("Expected: %s, and found %s", testCase.getTestResponse().getCode(), response.getStatusLine().getStatusCode()));
+                result.setFailureReason(String.format("Expected: %s, and found %s",
+                        testCase.getTestResponse().getCode(),
+                        response.getStatusLine().getStatusCode()));
                 result.setExecuted(true);
                 return result;
             }
