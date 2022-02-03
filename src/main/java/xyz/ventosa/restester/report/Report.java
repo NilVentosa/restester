@@ -22,17 +22,22 @@ public class Report {
 
         for (TestSuiteResult testSuiteResult: testPlanResult.getTestSuiteResults()) {
             stringBuilder.append(
-                    String.format("\t<testsuite name=\"%s\" time=\"0.135\" tests=\"%s\" skipped=\"%s\" failures=\"%s\">%n",
+                    String.format("\t<testsuite name=\"%s\" time=\"%s\" tests=\"%s\" skipped=\"%s\" failures=\"%s\">%n",
                             testSuiteResult.getName(),
+                            testSuiteResult.getExecutionTime(),
                             testSuiteResult.getTestCaseResults().size(),
                             testSuiteResult.getRemaining(),
                             testSuiteResult.getFailed()));
 
             for (TestCaseResult testCaseResult: testSuiteResult.getTestCaseResults()) {
                 if (testCaseResult.isPassed()) {
-                    stringBuilder.append(String.format("\t\t<testcase name=\"%s\" time=\"0.135\"/>%n", testCaseResult.getName()));
+                    stringBuilder.append(String.format("\t\t<testcase name=\"%s\" time=\"%s\"/>%n",
+                            testCaseResult.getName(),
+                            testCaseResult.getExecutionTime()));
                 } else {
-                    stringBuilder.append(String.format("\t\t<testcase name=\"%s\" time=\"0.135\">%n", testCaseResult.getName()));
+                    stringBuilder.append(String.format("\t\t<testcase name=\"%s\" time=\"%s\">%n",
+                            testCaseResult.getName(),
+                            testCaseResult.getExecutionTime()));
                     stringBuilder.append(String.format("\t\t\t<failure>%s</failure>%n", testCaseResult.getFailureReason()));
                     stringBuilder.append(String.format("\t\t</testcase>%n"));
                 }

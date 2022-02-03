@@ -4,11 +4,11 @@ Automation framework for rest api testing via json files.
 The idea here is to make it easy to automate REST tests without any coding, only with one (or more) json files.
 
 ## Install
-* gine clone git@github.com:NilVentosa/restester.git
+* git clone git@github.com:NilVentosa/restester.git
 * mvn clean compile assembly:single
 
 ## To run
-java -jar restester-jar-with-dependencies.jar testPlanFile.json
+java -jar restester-1.0.0.0-SNAPSHOT.jar testPlanFile.json
 
 A .xml report will be produced after execution in the same folder where the tool is. The results are also printed to the screen.
 
@@ -56,5 +56,7 @@ This is of course a work in progress. Currently it only asserts for the response
 - [ ] Authentication
 - [ ] DB steps for before and after (plan, suite, test, request...)
 - [ ] More assertions
-- [ ] Specify headers and method
+- [ ] Specify headers
+- [x] Specify method
+- [x] Add time in report
 - [ ] ...

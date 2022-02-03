@@ -2,13 +2,11 @@ package xyz.ventosa.restester.runner;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpDelete;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.HttpClientBuilder;
-import xyz.ventosa.restester.test.TestCase;
-import xyz.ventosa.restester.test.TestPlan;
-import xyz.ventosa.restester.test.ExpectedResponse;
-import xyz.ventosa.restester.test.TestSuite;
+import xyz.ventosa.restester.test.*;
 
 import xyz.ventosa.restester.util.HttpUtil;
 import xyz.ventosa.restester.util.Util;;
@@ -51,6 +49,7 @@ public class Runner {
                 result.setFailed(result.getFailed() + 1);
             }
             result.setRemaining(result.getRemaining() - 1);
+            result.setExecutionTime(result.getExecutionTime() + testCaseResult.getExecutionTime());
         }
 
         result.setExecuted(true);
@@ -59,22 +58,26 @@ public class Runner {
 
     private TestCaseResult run(TestCase testCase) {
         LOGGER.log(Level.INFO, "Running test case: {0}", testCase.getName());
+        long startTime = System.currentTimeMillis();
 
         HttpClient client = HttpClientBuilder.create().build();
         String url = HttpUtil.generateUrlString(testCase.getTestRequest());
-
-        switch(testCase.getTestRequest().getMethod()) {
-            case "POST":
-                HttpPost postRequest = new HttpPost(url);
-                break;
-            default:
-                HttpGet getRequest = new HttpGet(url);
-        }
-
-        HttpGet request = new HttpGet(url);
-        HttpResponse response = null;
+        TestRequest testRequest = testCase.getTestRequest();
+        HttpResponse response;
         try {
-            response = client.execute(request);
+            switch(testRequest.getMethod()) {
+                case "POST":
+                    HttpPost postRequest = new HttpPost(url);
+                    response = client.execute(postRequest);
+                    break;
+                case "DELETE":
+                    HttpDelete httpDelete = new HttpDelete(url);
+                    response = client.execute(httpDelete);
+                    break;
+                default:
+                    HttpGet getRequest = new HttpGet(url);
+                    response = client.execute(getRequest);
+            }
         }
         catch (IOException e) {
             TestCaseResult result = new TestCaseResult(testCase.getName());
@@ -82,7 +85,9 @@ public class Runner {
             return result;
         }
 
-        return runAssertions(testCase, response);
+        TestCaseResult result = runAssertions(testCase, response);
+        result.setExecutionTime((double) (System.currentTimeMillis() - startTime)/1000);
+        return result;
     }
 
     private TestCaseResult runAssertions(TestCase testCase, HttpResponse response) {

@@ -4,7 +4,7 @@ public abstract class Result {
 
     protected boolean executed = false;
     protected boolean passed;
-    protected int executionTime = 0;
+    protected double executionTime = 0;
     protected String name;
 
     public boolean isExecuted() {
@@ -23,11 +23,11 @@ public abstract class Result {
         this.passed = passed;
     }
 
-    public int getExecutionTime() {
+    public double getExecutionTime() {
         return executionTime;
     }
 
-    public void setExecutionTime(int executionTime) {
+    public void setExecutionTime(double executionTime) {
         this.executionTime = executionTime;
     }
 
