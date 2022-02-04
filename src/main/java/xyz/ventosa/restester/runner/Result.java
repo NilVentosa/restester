@@ -1,5 +1,7 @@
 package xyz.ventosa.restester.runner;
 
+import xyz.ventosa.restester.util.Util;
+
 public abstract class Result {
 
     protected boolean executed = false;
@@ -19,12 +21,16 @@ public abstract class Result {
         return passed;
     }
 
-    public void setPassed(boolean passed) {
-        this.passed = passed;
+    public void setPassed() {
+        this.passed = true;
+    }
+
+    public void setFailed() {
+        this.passed = false;
     }
 
     public double getExecutionTime() {
-        return executionTime;
+        return Util.round(executionTime, 3);
     }
 
     public void setExecutionTime(double executionTime) {

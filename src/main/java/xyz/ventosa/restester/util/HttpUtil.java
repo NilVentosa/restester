@@ -1,9 +1,5 @@
 package xyz.ventosa.restester.util;
 
-import org.apache.http.client.methods.HttpDelete;
-import org.apache.http.client.methods.HttpEntityEnclosingRequestBase;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.client.methods.HttpPut;
 import xyz.ventosa.restester.test.TestRequest;
 
 public class HttpUtil {

@@ -15,13 +15,13 @@
             ]
           },
           "response": {
-            "code": 200
+            "code": 201
           }
         },
         {
           "name": "Comments test 2",
           "response": {
-            "code": 404
+            "code": 200
           }
         }
       ]
@@ -38,6 +38,24 @@
         },
         {
           "name": "Users test 2",
+          "response": {
+            "code": 200
+          }
+        }
+      ]
+    },
+    {
+      "name": "Failure suite",
+      "endpoint": "/fail",
+      "tests": [
+        {
+          "name": "Fail test 1",
+          "response": {
+            "code": 200
+          }
+        },
+        {
+          "name": "Fail test 2",
           "response": {
             "code": 404
           }

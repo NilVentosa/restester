@@ -1,7 +1,5 @@
 package xyz.ventosa.restester.util;
 
-import xyz.ventosa.restester.test.TestRequest;
-
 import java.io.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -37,5 +35,13 @@ public class Util {
             e.printStackTrace();
         }
 
+    }
+
+    public static double round(double input, int decimalPlaces) {
+        double factor = 1d;
+        for (int i = 0; i < decimalPlaces; i++) {
+            factor *= 10d;
+        }
+        return Math.round(input * factor) / factor;
     }
 }

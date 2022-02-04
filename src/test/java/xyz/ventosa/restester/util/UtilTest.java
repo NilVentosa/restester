@@ -22,4 +22,20 @@ class UtilTest {
         String actual = Util.removeSpaces("hello bye");
         assertEquals(expected, actual);
     }
+
+    @Test
+    void roundThree() {
+        double expected = 1.778d;
+        double actual = Util.round(1.777777d, 3);
+
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    void roundZero() {
+        double expected = 2d;
+        double actual = Util.round(1.777777d, 0);
+
+        assertEquals(expected, actual);
+    }
 }

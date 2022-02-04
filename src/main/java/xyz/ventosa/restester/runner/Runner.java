@@ -80,9 +80,9 @@ public class Runner {
 
         if (expected.getCode() != -1) {
             if (expected.getCode() == response.getStatusLine().getStatusCode()) {
-                result.setPassed(true);
+                result.setPassed();
             } else {
-                result.setPassed(false);
+                result.setFailed();
                 result.setFailureReason(String.format("Expected: %s, and found %s",
                         testCase.getTestResponse().getCode(),
                         response.getStatusLine().getStatusCode()));
