@@ -44,4 +44,8 @@ public class Util {
         }
         return Math.round(input * factor) / factor;
     }
+
+    public static double millisecondsSince(double startTime) {
+        return (System.currentTimeMillis() - startTime)/1000d;
+    }
 }

@@ -15,4 +15,10 @@ public class TestCaseResult extends Result {
     public void setFailureReason(String failureReason) {
         this.failureReason = failureReason;
     }
+
+    public void setFailed(String failureReason) {
+        this.passed = false;
+        this.failureReason = failureReason;
+        this.setExecuted(true);
+    }
 }

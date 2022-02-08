@@ -8,7 +8,6 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.HttpClientBuilder;
 import xyz.ventosa.restester.json.pojo.ParameterPOJO;
 import xyz.ventosa.restester.json.pojo.RequestPOJO;
-import xyz.ventosa.restester.runner.TestCaseResult;
 import xyz.ventosa.restester.util.HttpUtil;
 
 import java.io.IOException;

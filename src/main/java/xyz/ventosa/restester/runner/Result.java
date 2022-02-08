@@ -1,12 +1,11 @@
 package xyz.ventosa.restester.runner;
 
-import xyz.ventosa.restester.util.Util;
 
 public abstract class Result {
 
     protected boolean executed = false;
     protected boolean passed;
-    protected double executionTime = 0;
+    protected double executionTime = 0d;
     protected String name;
 
     public boolean isExecuted() {
@@ -23,14 +22,16 @@ public abstract class Result {
 
     public void setPassed() {
         this.passed = true;
+        this.setExecuted(true);
     }
 
     public void setFailed() {
         this.passed = false;
+        this.setExecuted(true);
     }
 
     public double getExecutionTime() {
-        return Util.round(executionTime, 3);
+        return executionTime;
     }
 
     public void setExecutionTime(double executionTime) {

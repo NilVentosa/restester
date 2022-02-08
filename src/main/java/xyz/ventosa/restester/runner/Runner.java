@@ -1,14 +1,8 @@
 package xyz.ventosa.restester.runner;
 
 import org.apache.http.HttpResponse;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpDelete;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.impl.client.HttpClientBuilder;
 import xyz.ventosa.restester.test.*;
 
-import xyz.ventosa.restester.util.HttpUtil;
 import xyz.ventosa.restester.util.Util;;
 
 import java.io.IOException;
@@ -49,7 +43,7 @@ public class Runner {
                 result.setFailed(result.getFailed() + 1);
             }
             result.setRemaining(result.getRemaining() - 1);
-            result.setExecutionTime(result.getExecutionTime() + testCaseResult.getExecutionTime());
+            result.setExecutionTime(Util.round(result.getExecutionTime(), 3) + testCaseResult.getExecutionTime());
         }
 
         result.setExecuted(true);
@@ -58,7 +52,7 @@ public class Runner {
 
     private TestCaseResult run(TestCase testCase) {
         LOGGER.log(Level.INFO, "Running test case: {0}", testCase.getName());
-        long startTime = System.currentTimeMillis();
+        double startTime = System.currentTimeMillis();
 
         HttpResponse response;
         try {
@@ -70,7 +64,7 @@ public class Runner {
         }
 
         TestCaseResult result = runAssertions(testCase, response);
-        result.setExecutionTime((double) (System.currentTimeMillis() - startTime)/1000);
+        result.setExecutionTime(Util.millisecondsSince(startTime));
         return result;
     }
 
@@ -78,18 +72,18 @@ public class Runner {
         TestCaseResult result = new TestCaseResult(testCase.getName());
         ExpectedResponse expected = testCase.getTestResponse();
 
-        if (expected.getCode() != -1) {
-            if (expected.getCode() == response.getStatusLine().getStatusCode()) {
-                result.setPassed();
-            } else {
-                result.setFailed();
-                result.setFailureReason(String.format("Expected: %s, and found %s",
-                        testCase.getTestResponse().getCode(),
-                        response.getStatusLine().getStatusCode()));
-                result.setExecuted(true);
-                return result;
-            }
+        if (expected.getCode() == -1) {
+            return result;
         }
+
+        if (expected.getCode() == response.getStatusLine().getStatusCode()) {
+            result.setPassed();
+            return result;
+        }
+
+        result.setFailed(String.format("Expected: %s, and found %s",
+                testCase.getTestResponse().getCode(),
+                response.getStatusLine().getStatusCode()));
         return result;
     }
 }
