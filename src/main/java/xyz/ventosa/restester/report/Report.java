@@ -1,5 +1,6 @@
 package xyz.ventosa.restester.report;
 
+import xyz.ventosa.restester.runner.Status;
 import xyz.ventosa.restester.runner.TestCaseResult;
 import xyz.ventosa.restester.runner.TestPlanResult;
 import xyz.ventosa.restester.runner.TestSuiteResult;
@@ -26,8 +27,8 @@ public class Report {
                             testSuiteResult.getName(),
                             testSuiteResult.getExecutionTime(),
                             testSuiteResult.getTestCaseResults().size(),
-                            testSuiteResult.getRemaining(),
-                            testSuiteResult.getFailed()));
+                            testSuiteResult.getAmountOfTestCasesByStatus(Status.SKIPPED),
+                            testSuiteResult.getAmountOfTestCasesByStatus(Status.FAILED)));
 
             for (TestCaseResult testCaseResult: testSuiteResult.getTestCaseResults()) {
                 if (testCaseResult.isPassed()) {
@@ -61,9 +62,9 @@ public class Report {
         for (TestSuiteResult testSuiteResult: testPlanResult.getTestSuiteResults()) {
             stringBuilder.append(String.format("--- SUITE: %s%n", testSuiteResult.getName()));
             stringBuilder.append(String.format("------ Tests run: %s, Tests passed: %s, Tests failed: %s%n",
-                    testSuiteResult.getFailed()+testSuiteResult.getPassed(),
-                    testSuiteResult.getPassed(),
-                    testSuiteResult.getFailed()));
+                    testSuiteResult.getAmountOfTestCasesByStatus(Status.FAILED)+ testSuiteResult.getAmountOfTestCasesByStatus(Status.PASSED),
+                    testSuiteResult.getAmountOfTestCasesByStatus(Status.PASSED),
+                    testSuiteResult.getAmountOfTestCasesByStatus(Status.FAILED)));
             if (!testSuiteResult.isPassed()) {
                 for (TestCaseResult testCaseResult: testSuiteResult.getTestCaseResults()) {
                     if (!testCaseResult.isPassed()) {

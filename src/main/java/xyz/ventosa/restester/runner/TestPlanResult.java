@@ -30,4 +30,13 @@ public class TestPlanResult extends Result {
     public void setTestPlan(TestPlan testPlan) {
         this.testPlan = testPlan;
     }
+
+    public void setStatus() {
+        this.setStatus(Status.PASSED);
+        for (TestSuiteResult testSuiteResult: this.testSuiteResults) {
+            if (testSuiteResult.getStatus() == Status.FAILED) {
+                this.setStatus(Status.FAILED);
+            }
+        }
+    }
 }

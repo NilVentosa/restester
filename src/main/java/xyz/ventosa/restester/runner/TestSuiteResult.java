@@ -9,22 +9,14 @@ public class TestSuiteResult extends Result {
 
     private List<TestCaseResult> testCaseResults = new ArrayList<>();
     private TestSuite suite;
-    private int failed = 0;
-    private int passed = 0;
-    private int remaining = 0;
 
     public TestSuiteResult(TestSuite suite) {
         this.setName(suite.getName());
         this.setSuite(suite);
-        this.setRemaining(suite.getTestCases().size());
     }
 
     public List<TestCaseResult> getTestCaseResults() {
         return testCaseResults;
-    }
-
-    public void setTestCaseResults(List<TestCaseResult> testCaseResults) {
-        this.testCaseResults = testCaseResults;
     }
 
     public TestSuite getSuite() {
@@ -35,27 +27,24 @@ public class TestSuiteResult extends Result {
         this.suite = suite;
     }
 
-    public int getFailed() {
-        return failed;
+    public int getAmountOfTestCasesByStatus(Status status) {
+        int result = 0;
+
+        for (TestCaseResult testCaseResult: this.testCaseResults) {
+            if (testCaseResult.getStatus() == status) {
+                result++;
+            }
+        }
+
+        return result;
     }
 
-    public void setFailed(int failed) {
-        this.failed = failed;
-    }
-
-    public int getPassed() {
-        return passed;
-    }
-
-    public void setPassed(int passed) {
-        this.passed = passed;
-    }
-
-    public int getRemaining() {
-        return remaining;
-    }
-
-    public void setRemaining(int remaining) {
-        this.remaining = remaining;
+    public void setStatus() {
+        this.setStatus(Status.PASSED);
+        for (TestCaseResult testCaseResult: this.testCaseResults) {
+            if (testCaseResult.getStatus() == Status.FAILED) {
+                this.setStatus(Status.FAILED);
+            }
+        }
     }
 }

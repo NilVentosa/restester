@@ -26,7 +26,7 @@ public class Runner {
             this.testPlanResult.getTestSuiteResults().add(testSuiteResult);
         }
 
-        this.testPlanResult.setExecuted(true);
+        this.testPlanResult.setStatus();
         return this.testPlanResult;
     }
 
@@ -37,16 +37,10 @@ public class Runner {
         for (TestCase testCase: suite.getTestCases()) {
             TestCaseResult testCaseResult = this.run(testCase);
             result.getTestCaseResults().add(testCaseResult);
-            if (testCaseResult.isPassed()) {
-                result.setPassed(result.getPassed() + 1);
-            } else {
-                result.setFailed(result.getFailed() + 1);
-            }
-            result.setRemaining(result.getRemaining() - 1);
             result.setExecutionTime(Util.round(result.getExecutionTime(), 3) + testCaseResult.getExecutionTime());
         }
 
-        result.setExecuted(true);
+        result.setStatus();
         return result;
     }
 
@@ -77,7 +71,7 @@ public class Runner {
         }
 
         if (expected.getCode() == response.getStatusLine().getStatusCode()) {
-            result.setPassed();
+            result.setStatus(Status.PASSED);
             return result;
         }
 

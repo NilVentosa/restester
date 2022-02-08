@@ -3,31 +3,20 @@ package xyz.ventosa.restester.runner;
 
 public abstract class Result {
 
-    protected boolean executed = false;
-    protected boolean passed;
+    protected Status status = Status.TO_RUN;
     protected double executionTime = 0d;
     protected String name;
 
     public boolean isExecuted() {
-        return executed;
-    }
-
-    public void setExecuted(boolean executed) {
-        this.executed = executed;
+        return status == Status.PASSED || status == Status.FAILED;
     }
 
     public boolean isPassed() {
-        return passed;
+        return status == Status.PASSED;
     }
 
-    public void setPassed() {
-        this.passed = true;
-        this.setExecuted(true);
-    }
-
-    public void setFailed() {
-        this.passed = false;
-        this.setExecuted(true);
+    public boolean isFailed() {
+        return status == Status.FAILED;
     }
 
     public double getExecutionTime() {
@@ -44,5 +33,13 @@ public abstract class Result {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
     }
 }

@@ -17,8 +17,7 @@ public class TestCaseResult extends Result {
     }
 
     public void setFailed(String failureReason) {
-        this.passed = false;
         this.failureReason = failureReason;
-        this.setExecuted(true);
+        this.setStatus(Status.FAILED);
     }
 }
