@@ -1,4 +1,4 @@
-package xyz.ventosa.restester.test;
+package xyz.ventosa.restester.runner.parsed;
 
 import xyz.ventosa.restester.json.pojo.ResponsePOJO;
 

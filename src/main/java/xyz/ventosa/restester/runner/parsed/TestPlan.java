@@ -1,4 +1,4 @@
-package xyz.ventosa.restester.test;
+package xyz.ventosa.restester.runner.parsed;
 
 import xyz.ventosa.restester.json.pojo.TestPlanPOJO;
 
@@ -42,10 +42,6 @@ public class TestPlan {
 
     public List<TestSuite> getTestSuites() {
         return testSuites;
-    }
-
-    public void setTestSuites(List<TestSuite> testSuites) {
-        this.testSuites = testSuites;
     }
 
     public String getUrl() {

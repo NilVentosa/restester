@@ -1,9 +1,9 @@
 package xyz.ventosa.restester.report;
 
-import xyz.ventosa.restester.runner.Status;
-import xyz.ventosa.restester.runner.TestCaseResult;
-import xyz.ventosa.restester.runner.TestPlanResult;
-import xyz.ventosa.restester.runner.TestSuiteResult;
+import xyz.ventosa.restester.runner.result.Status;
+import xyz.ventosa.restester.runner.result.TestCaseResult;
+import xyz.ventosa.restester.runner.result.TestPlanResult;
+import xyz.ventosa.restester.runner.result.TestSuiteResult;
 import xyz.ventosa.restester.util.Util;
 
 import java.util.logging.Level;
@@ -73,6 +73,8 @@ public class Report {
                 }
             }
         }
+        stringBuilder.append(SEPARATOR);
+        stringBuilder.append(String.format("Total time: %s s%n", testPlanResult.getExecutionTime()));
         stringBuilder.append(SEPARATOR);
         String report = stringBuilder.toString();
         LOGGER.info(report);

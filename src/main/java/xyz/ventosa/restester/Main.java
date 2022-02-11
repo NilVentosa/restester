@@ -6,8 +6,8 @@ import xyz.ventosa.restester.json.pojo.TestPlanPOJO;
 import xyz.ventosa.restester.json.Json;
 import xyz.ventosa.restester.report.Report;
 import xyz.ventosa.restester.runner.Runner;
-import xyz.ventosa.restester.runner.TestPlanResult;
-import xyz.ventosa.restester.test.TestPlan;
+import xyz.ventosa.restester.runner.result.TestPlanResult;
+import xyz.ventosa.restester.runner.parsed.TestPlan;
 import xyz.ventosa.restester.util.Util;
 
 import java.io.*;
@@ -26,10 +26,10 @@ public class Main {
             JsonNode node = Json.parse(Util.stringFromFile("src/test/resources/jsonplaceholder.typicode.com.json"));
             TestPlanPOJO planPOJO = Json.fromJson(node, TestPlanPOJO.class);
 
-            Runner runner = new Runner();
-            TestPlanResult result = runner.run(new TestPlan(planPOJO));
-            Report.generateReport(result);
-            Report.printReport(result);
+            TestPlanResult testPlanResult = new Runner().run(new TestPlan(planPOJO));
+
+            Report.generateReport(testPlanResult);
+            Report.printReport(testPlanResult);
         } catch (JsonProcessingException e) {
             LOGGER.log(Level.SEVERE, "Error processing JSON: {0}", e.getMessage());
         } catch (FileNotFoundException e) {

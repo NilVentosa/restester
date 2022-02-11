@@ -1,6 +1,6 @@
 package xyz.ventosa.restester.util;
 
-import xyz.ventosa.restester.test.TestRequest;
+import xyz.ventosa.restester.runner.parsed.TestRequest;
 
 public class HttpUtil {
 

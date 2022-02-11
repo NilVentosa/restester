@@ -1,11 +1,14 @@
-package xyz.ventosa.restester.test;
+package xyz.ventosa.restester.runner.parsed;
 
 import xyz.ventosa.restester.json.pojo.TestSuitePOJO;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 public class TestSuite {
+    private static final Logger LOGGER = Logger.getLogger(TestSuite.class.getSimpleName());
+
     private String name;
     private String description;
     private String url;
@@ -57,10 +60,6 @@ public class TestSuite {
 
     public List<TestCase> getTestCases() {
         return testCases;
-    }
-
-    public void setTestCases(List<TestCase> testCases) {
-        this.testCases = testCases;
     }
 
     public String getEndpoint() {

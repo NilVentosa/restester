@@ -1,6 +1,6 @@
-package xyz.ventosa.restester.runner;
+package xyz.ventosa.restester.runner.result;
 
-import xyz.ventosa.restester.test.TestPlan;
+import xyz.ventosa.restester.runner.parsed.TestPlan;
 
 import java.util.ArrayList;
 import java.util.List;

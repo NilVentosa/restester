@@ -1,8 +1,12 @@
-package xyz.ventosa.restester.test;
+package xyz.ventosa.restester.runner.parsed;
 
 import xyz.ventosa.restester.json.pojo.TestCasePOJO;
 
+import java.util.logging.Logger;
+
 public class TestCase {
+    private static final Logger LOGGER = Logger.getLogger(TestCase.class.getSimpleName());
+
     private String name;
     private String description;
     private TestRequest testRequest;

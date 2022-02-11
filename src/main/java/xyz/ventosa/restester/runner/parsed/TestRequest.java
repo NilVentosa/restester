@@ -1,4 +1,4 @@
-package xyz.ventosa.restester.test;
+package xyz.ventosa.restester.runner.parsed;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;

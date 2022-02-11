@@ -1,4 +1,4 @@
-package xyz.ventosa.restester.runner;
+package xyz.ventosa.restester.runner.result;
 
 public class TestCaseResult extends Result {
 

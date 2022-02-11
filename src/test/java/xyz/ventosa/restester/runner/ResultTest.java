@@ -1,6 +1,7 @@
 package xyz.ventosa.restester.runner;
 
 import org.junit.jupiter.api.Test;
+import xyz.ventosa.restester.runner.result.TestCaseResult;
 
 import static org.junit.jupiter.api.Assertions.*;
 
