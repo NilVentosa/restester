@@ -7,16 +7,16 @@ public abstract class Result {
     protected double executionTime = 0d;
     protected String name;
 
-    public boolean isExecuted() {
-        return status == Status.PASSED || status == Status.FAILED;
-    }
-
     public boolean isPassed() {
         return status == Status.PASSED;
     }
 
     public boolean isFailed() {
         return status == Status.FAILED;
+    }
+
+    public boolean isError() {
+        return status == Status.ERROR;
     }
 
     public double getExecutionTime() {

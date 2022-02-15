@@ -11,6 +11,18 @@ class JsonTest {
 
     private final String simpleJsonSourceTitle = "the title";
     private final String simpleJsonSource = "{ \"title\": \"" + simpleJsonSourceTitle + "\", \"author\": \"Nil\"}";
+    private final String nestedFieldWithArrays = "[\n" +
+            "  {\n" +
+            "    \"name\": \"et fugit eligendi deleniti quidem qui sint nihil autem\",\n" +
+            "    \"thing\": [\n" +
+            "      {\n" +
+            "        \"key\": \"value\"\n" +
+            "      }, {\n" +
+            "        \"key2\": \"value2\"\n" +
+            "      }\n" +
+            "    ]\n" +
+            "  }\n" +
+            "]";
 
 
     @Test
@@ -54,5 +66,21 @@ class JsonTest {
         JsonNode node = Json.toJsonNode(pojo);
 
         assertEquals("{\n  \"title\" : \"the title\"\n}", Json.prettyStringify(node));
+    }
+
+    @Test
+    void extractFieldValueArray() throws JsonProcessingException{
+        String expected = "value2";
+        String actual = Json.extractFieldValue(Json.parse(nestedFieldWithArrays), "[0].thing[1].key2");
+
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    void extractFieldValue() throws JsonProcessingException{
+        String expected = "et fugit eligendi deleniti quidem qui sint nihil autem";
+        String actual = Json.extractFieldValue(Json.parse(nestedFieldWithArrays), "[0].name");
+
+        assertEquals(expected, actual);
     }
 }

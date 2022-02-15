@@ -48,4 +48,24 @@ public class Json {
         return objectWriter.writeValueAsString(node);
     }
 
+    public static String extractFieldValue(JsonNode node, String field) {
+        String parsed = field.replace("[", ".").replace("]", "");
+        if (parsed.charAt(0) == '.') {
+            parsed = parsed.substring(1);
+        }
+
+        String[] fields = parsed.split("\\.");
+
+        JsonNode n = node;
+        for (String f: fields) {
+            if (n.isArray()) {
+                n = n.get(Integer.parseInt(f));
+            } else {
+                n = n.get(f);
+            }
+        }
+
+        return n.asText();
+    }
+
 }

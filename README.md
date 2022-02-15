@@ -14,7 +14,7 @@ A .xml report will be produced after execution in the same folder where the tool
 
 ## Test plan file example
 * Endpoint and url can be specified at request, test suite and test plan level. The preference is in that order.
-* suites, tests and parameters accept multiple instances.
+* Suites, tests, parameters, fields and any other thing in an array accepts multiple instances.
 * If a mandatory field is not there it will tell you somehow
 ```json
 {
@@ -37,7 +37,11 @@ A .xml report will be produced after execution in the same folder where the tool
             ]
           },
           "response": {
-            "code": 200
+            "code": 200,
+            "fields": [
+              {"key": "[1].id", "value":  "7"},
+              {"key": "[4].email", "value":  "hello@mail.com"}
+            ]
           }
         }
       ]
@@ -45,18 +49,25 @@ A .xml report will be produced after execution in the same folder where the tool
   ]
 }
 ```
+
+The tool will assert the items in the "response". Currently, only code and fields.
+
 ## Jenkins integration
 After execution a .xml file will be produced with the results. The file can be fed to the junit plugin in jenkins.
 
 ## Note
-This is of course a work in progress. Currently it only asserts for the response code. I plan to add more stuff to it. If you want to tell me something about this: ventosa@gmail.com
+This is of course a work in progress. I plan to add more stuff to it. If you want to tell me something about this: ventosa@gmail.com
 
 ## Things I want to add
 - [ ] Yaml and xml support for the plan file
 - [ ] Authentication
 - [ ] DB steps for before and after (plan, suite, test, request...)
-- [ ] More assertions
+- [x] Status code assertion
+- [x] Field assertion
+- [ ] Body assertion
+- [ ] Headers assertion
 - [ ] Specify headers
 - [x] Specify method
 - [x] Add time in report
+- [ ] Plan in multiple files
 - [ ] ...

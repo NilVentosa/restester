@@ -15,8 +15,12 @@ public class Util {
         InputStream inputStream = new FileInputStream(filePath);
         try (BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream))) {
             return bufferedReader.lines().collect(Collectors.joining("\n"));
-
         }
+    }
+
+    public static String stringFromInputStream(InputStream inputStream) throws IOException {
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
+        return bufferedReader.lines().collect(Collectors.joining("\n"));
     }
 
     public static String removeSpaces(String input) {

@@ -23,11 +23,11 @@ public class Report {
 
         for (TestSuiteResult testSuiteResult: testPlanResult.getTestSuiteResults()) {
             stringBuilder.append(
-                    String.format("\t<testsuite name=\"%s\" time=\"%s\" tests=\"%s\" skipped=\"%s\" failures=\"%s\">%n",
+                    String.format("\t<testsuite name=\"%s\" time=\"%s\" tests=\"%s\" error=\"%s\" failures=\"%s\">%n",
                             testSuiteResult.getName(),
                             testSuiteResult.getExecutionTime(),
                             testSuiteResult.getTestCaseResults().size(),
-                            testSuiteResult.getAmountOfTestCasesByStatus(Status.SKIPPED),
+                            testSuiteResult.getAmountOfTestCasesByStatus(Status.ERROR),
                             testSuiteResult.getAmountOfTestCasesByStatus(Status.FAILED)));
 
             for (TestCaseResult testCaseResult: testSuiteResult.getTestCaseResults()) {
@@ -39,15 +39,17 @@ public class Report {
                     stringBuilder.append(String.format("\t\t<testcase name=\"%s\" time=\"%s\">%n",
                             testCaseResult.getName(),
                             testCaseResult.getExecutionTime()));
-                    stringBuilder.append(String.format("\t\t\t<failure>%s</failure>%n", testCaseResult.getFailureReason()));
+                    if (testCaseResult.isFailed()) {
+                        stringBuilder.append(String.format("\t\t\t<failure>%s</failure>%n", testCaseResult.getFailureReason()));
+                    } else {
+                        stringBuilder.append(String.format("\t\t\t<error>%s</error>%n", testCaseResult.getFailureReason()));
+                    }
                     stringBuilder.append(String.format("\t\t</testcase>%n"));
                 }
             }
             stringBuilder.append("\t</testsuite>\n");
         }
         stringBuilder.append("</testsuites>");
-
-
 
         Util.saveXml(Util.removeSpaces(testPlanResult.getName()), stringBuilder.toString());
     }
@@ -61,14 +63,17 @@ public class Report {
         stringBuilder.append(SEPARATOR);
         for (TestSuiteResult testSuiteResult: testPlanResult.getTestSuiteResults()) {
             stringBuilder.append(String.format("--- SUITE: %s%n", testSuiteResult.getName()));
-            stringBuilder.append(String.format("------ Tests run: %s, Tests passed: %s, Tests failed: %s%n",
+            stringBuilder.append(String.format("------ Tests run: %s, Passed: %s, Failed: %s, Errors: %s%n",
                     testSuiteResult.getAmountOfTestCasesByStatus(Status.FAILED)+ testSuiteResult.getAmountOfTestCasesByStatus(Status.PASSED),
                     testSuiteResult.getAmountOfTestCasesByStatus(Status.PASSED),
-                    testSuiteResult.getAmountOfTestCasesByStatus(Status.FAILED)));
-            if (!testSuiteResult.isPassed()) {
+                    testSuiteResult.getAmountOfTestCasesByStatus(Status.FAILED),
+                    testSuiteResult.getAmountOfTestCasesByStatus(Status.ERROR)));
+            if (testSuiteResult.isFailed()) {
                 for (TestCaseResult testCaseResult: testSuiteResult.getTestCaseResults()) {
-                    if (!testCaseResult.isPassed()) {
-                        stringBuilder.append(String.format("\t\tTest \"%s\" failed due to: %s%n", testCaseResult.getName(), testCaseResult.getFailureReason()));
+                    if (testCaseResult.isFailed()) {
+                        stringBuilder.append(String.format("\t\tTest \"%s\" FAILED due to: %s%n", testCaseResult.getName(), testCaseResult.getFailureReason()));
+                    } else if (testCaseResult.isError()) {
+                        stringBuilder.append(String.format("\t\tTest \"%s\" ERROR due to: %s%n", testCaseResult.getName(), testCaseResult.getFailureReason()));
                     }
                 }
             }

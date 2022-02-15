@@ -9,13 +9,17 @@
         {
           "name": "Comments test 1",
           "request": {
-            "method": "POST",
+            "method": "GET",
             "parameters": [
-              {"key": "postId", "value":  "1"}
+              {"key": "postId", "value":  "2"}
             ]
           },
           "response": {
-            "code": 201
+            "code": 200,
+            "fields": [
+              {"key": "[1].id", "value":  "7"},
+              {"key": "[4].email", "value":  "Carmen_Keeling@caroline.name"}
+            ]
           }
         },
         {
@@ -59,8 +63,27 @@
           "response": {
             "code": 404
           }
+        },
+        {
+          "name": "Error test 1",
+          "request": {
+            "method": "GET",
+            "endpoint": "/comments",
+            "parameters": [
+              {"key": "postId", "value":  "2"}
+            ]
+          },
+          "response": {
+            "code": 200,
+            "fields": [
+              {"key": "[1].id", "value":  "7"},
+              {"key": "[10].email", "value":  "Carmen_Keeling@caroline.name"}
+            ]
+          }
         }
       ]
     }
   ]
 }
+
+

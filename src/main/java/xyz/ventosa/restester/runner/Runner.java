@@ -5,12 +5,11 @@ import xyz.ventosa.restester.runner.result.Status;
 import xyz.ventosa.restester.runner.result.TestCaseResult;
 import xyz.ventosa.restester.runner.result.TestPlanResult;
 import xyz.ventosa.restester.runner.result.TestSuiteResult;
-import xyz.ventosa.restester.runner.parsed.ExpectedResponse;
 import xyz.ventosa.restester.runner.parsed.TestCase;
 import xyz.ventosa.restester.runner.parsed.TestPlan;
 import xyz.ventosa.restester.runner.parsed.TestSuite;
 
-import xyz.ventosa.restester.util.Util;;
+import xyz.ventosa.restester.util.Util;
 
 import java.io.IOException;
 import java.util.logging.Level;
@@ -71,32 +70,9 @@ public class Runner {
             return result;
         }
 
-        result = allAssertions(testCase, response);
+        result = Asserter.allAssertions(testCase, response);
 
         result.setExecutionTime(Util.millisecondsSince(startTime));
-        return result;
-    }
-
-    public static TestCaseResult allAssertions(TestCase testCase, HttpResponse response) {
-        return statusCodeAssertion(testCase, response);
-    }
-
-    private static TestCaseResult statusCodeAssertion(TestCase testCase, HttpResponse response) {
-        TestCaseResult result = new TestCaseResult(testCase.getName());
-        ExpectedResponse expected = testCase.getTestResponse();
-
-        if (expected.getCode() == -1) {
-            return result;
-        }
-
-        if (expected.getCode() == response.getStatusLine().getStatusCode()) {
-            result.setStatus(Status.PASSED);
-            return result;
-        }
-
-        result.setFailed(String.format("Expected: %s, and found %s",
-                testCase.getTestResponse().getCode(),
-                response.getStatusLine().getStatusCode()));
         return result;
     }
 }
