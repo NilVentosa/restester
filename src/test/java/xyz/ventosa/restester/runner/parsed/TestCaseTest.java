@@ -1,8 +1,7 @@
-package xyz.ventosa.restester.test;
+package xyz.ventosa.restester.runner.parsed;
 
 import org.junit.jupiter.api.Test;
 import xyz.ventosa.restester.TestUtils;
-import xyz.ventosa.restester.runner.parsed.TestSuite;
 
 import static org.junit.jupiter.api.Assertions.*;
 
