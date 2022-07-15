@@ -18,7 +18,7 @@ public class Util {
         }
     }
 
-    public static String stringFromInputStream(InputStream inputStream) throws IOException {
+    public static String stringFromInputStream(InputStream inputStream) {
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
         return bufferedReader.lines().collect(Collectors.joining("\n"));
     }

@@ -21,9 +21,7 @@ public class Json {
     }
 
     public static <A>A fromJson(JsonNode node, Class<A> clazz) throws JsonProcessingException {
-
         return objectMapper.treeToValue(node, clazz);
-
     }
 
     public static JsonNode toJsonNode(Object a) {

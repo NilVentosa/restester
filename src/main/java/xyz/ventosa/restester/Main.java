@@ -2,8 +2,8 @@ package xyz.ventosa.restester;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
-import xyz.ventosa.restester.json.pojo.TestPlanPOJO;
 import xyz.ventosa.restester.json.Json;
+import xyz.ventosa.restester.json.pojo.TestPlanPOJO;
 import xyz.ventosa.restester.report.Report;
 import xyz.ventosa.restester.runner.Runner;
 import xyz.ventosa.restester.runner.result.TestPlanResult;
